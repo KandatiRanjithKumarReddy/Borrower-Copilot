@@ -20,7 +20,7 @@ interface ConfidenceResult {
  * can trust its own output given the information provided.
  */
 export function calculateConfidence(input: AssessmentInput): ConfidenceResult {
-  const { borrower, loan, financial } = input;
+  const { borrower, financial } = input;
   const reasons: string[] = [];
   let score = 70; // Start with a reasonable base
 

@@ -15,7 +15,7 @@ import type { BorrowerProfile, FinancialProfile, EmploymentType } from './types'
  * NEVER uses the highest reported income as the base.
  */
 export function calculateSustainableIncome(borrower: BorrowerProfile): number {
-  const { employmentType, monthlyIncome, incomeLow, incomeHigh, variablePayPercent, itrAnnualIncome } = borrower;
+  const { employmentType, monthlyIncome, incomeLow, variablePayPercent, itrAnnualIncome } = borrower;
 
   switch (employmentType) {
     case 'salaried': {

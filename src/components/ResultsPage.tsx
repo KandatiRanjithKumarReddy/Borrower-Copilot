@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   Sparkles,
   TrendingUp,
-  TrendingDown,
   Shield,
   AlertTriangle,
   XCircle,
