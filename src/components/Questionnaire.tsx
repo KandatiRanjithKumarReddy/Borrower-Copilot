@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
-  Sparkles,
   User,
   Briefcase,
   Banknote,
@@ -20,9 +19,12 @@ import type {
   LoanType,
 } from '../engine/types';
 
+import { HeaderBrand } from './HeaderBrand';
+
 interface QuestionnaireProps {
   onComplete: (input: AssessmentInput) => void;
   onBack: () => void;
+  onHome?: () => void;
 }
 
 const STEPS = ['Profile', 'Loan Details', 'Finances', 'Adaptive', 'Credit'];
@@ -52,7 +54,7 @@ const LOAN_TYPES: { value: LoanType; label: string }[] = [
 
 const TENURE_OPTIONS = [1, 2, 3, 5, 7, 10];
 
-export function Questionnaire({ onComplete, onBack }: QuestionnaireProps) {
+export function Questionnaire({ onComplete, onBack, onHome }: QuestionnaireProps) {
   const [step, setStep] = useState(0);
 
   // Borrower Profile
@@ -197,12 +199,7 @@ export function Questionnaire({ onComplete, onBack }: QuestionnaireProps) {
       {/* Header */}
       <header className="border-b border-slate-100 bg-white/70 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-lg font-bold text-slate-800">Borrower Copilot</span>
-          </div>
+          <HeaderBrand onClick={onHome} />
           <span className="text-sm text-slate-500">Step {step + 1} of {STEPS.length}</span>
         </div>
       </header>

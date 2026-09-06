@@ -11,23 +11,21 @@ import {
 import type { AssessmentInput } from '../engine/types';
 import { PERSONAS } from '../utils/personas';
 
+import { HeaderBrand } from './HeaderBrand';
+
 interface LandingPageProps {
   onStart: () => void;
   onLoadPersona: (input: AssessmentInput) => void;
+  onHome?: () => void;
 }
 
-export function LandingPage({ onStart, onLoadPersona }: LandingPageProps) {
+export function LandingPage({ onStart, onLoadPersona, onHome }: LandingPageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-primary-50">
       {/* Header */}
       <header className="border-b border-slate-100 bg-white/70 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-lg font-bold text-slate-800">Borrower Copilot</span>
-          </div>
+          <HeaderBrand onClick={onHome} />
           <div className="flex items-center gap-1.5 text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full">
             <Shield className="w-3.5 h-3.5" />
             <span>100% Private</span>

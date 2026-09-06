@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {
-  Sparkles,
   TrendingUp,
   Shield,
   AlertTriangle,
@@ -28,14 +27,16 @@ import {
   getConfidenceColor,
 } from '../utils/formatters';
 import { NegotiationCard } from './NegotiationCard';
+import { HeaderBrand } from './HeaderBrand';
 
 interface ResultsPageProps {
   result: AssessmentResult;
   input: AssessmentInput;
   onStartOver: () => void;
+  onHome?: () => void;
 }
 
-export function ResultsPage({ result, input, onStartOver }: ResultsPageProps) {
+export function ResultsPage({ result, input, onStartOver, onHome }: ResultsPageProps) {
   const [showNegotiationCard, setShowNegotiationCard] = useState(false);
   const [expandedExplanations, setExpandedExplanations] = useState(false);
 
@@ -56,12 +57,7 @@ export function ResultsPage({ result, input, onStartOver }: ResultsPageProps) {
       {/* Header */}
       <header className="border-b border-slate-100 bg-white/70 backdrop-blur-sm sticky top-0 z-10 no-print">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-lg font-bold text-slate-800">Borrower Copilot</span>
-          </div>
+          <HeaderBrand onClick={onHome} />
           <button onClick={onStartOver} className="btn-ghost flex items-center gap-1.5" id="start-over">
             <RotateCcw className="w-4 h-4" />
             Start Over

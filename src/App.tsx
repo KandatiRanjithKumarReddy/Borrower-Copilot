@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { AssessmentInput, AssessmentResult } from './engine/types';
 import { assessBorrower } from './engine';
 import { LandingPage } from './components/LandingPage';
@@ -36,18 +36,40 @@ export default function App() {
     setScreen('landing');
   }, []);
 
+  const handleGoHome = useCallback(() => {
+    setAssessmentInput(null);
+    setResult(null);
+    setScreen('landing');
+    if (window.location.pathname !== '/') {
+      window.history.pushState(null, '', '/');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (window.location.pathname === '/' || window.location.pathname === '') {
+        setScreen('landing');
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-50">
       {screen === 'landing' && (
         <LandingPage
           onStart={handleStart}
           onLoadPersona={handleLoadPersona}
+          onHome={handleGoHome}
         />
       )}
       {screen === 'questionnaire' && (
         <Questionnaire
           onComplete={handleAssessmentComplete}
           onBack={() => setScreen('landing')}
+          onHome={handleGoHome}
         />
       )}
       {screen === 'results' && result && assessmentInput && (
@@ -55,6 +77,7 @@ export default function App() {
           result={result}
           input={assessmentInput}
           onStartOver={handleStartOver}
+          onHome={handleGoHome}
         />
       )}
     </div>
